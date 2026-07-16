@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <!-- Filtro oscuro para el fondo -->
+    <div class="overlay"></div>
+
+    <!-- AQUÍ AGREGAS TU CANCIÓN -->
+    <audio id="musica" src="Diego Luna - Te Amo Y Más (Letra).mp3"></audio>
+    <!-- El contenedor que escuchará el clic -->
+<div class="envelope-wrapper" id="envelope">
+    <div class="envelope">
+    <div class="flap"></div>
+    
+    <div class="letter">
+        <h2>Hola, pequeña</h2>
+        <p>Te amo mucho, así que decidí hacer esto de la manera más única y especial solo para ti.</p>
+        <p>Eres alguien muy especial para mí.</p>
+    </div>
+    
+    <div class="hearts">
+        <div class="heart">❤️</div>
+        <div class="heart">💖</div>
+        <div class="heart">💕</div>
+    </div>
+    </div>
+</div>
+
+<p class="instruction">(Toca el sobre para abrirlo)</p>
+
+<script>
+const envelope = document.getElementById('envelope');
+    const musica = document.getElementById('musica');
+    
+    envelope.addEventListener('click', () => {
+      // Abre el sobre
+    envelope.classList.toggle('open');
+    
+      // Reproduce la música si el sobre se abre. 
+      // Los navegadores requieren que el usuario interactúe (haga clic) antes de que el audio pueda sonar, así que este es el momento ideal.
+    if(envelope.classList.contains('open')) {
+        musica.play();
+    } else {
+        // Opcional: pausar si lo vuelve a cerrar
+        musica.pause(); 
+    }
+    });
+</script>
+</body>
+</html>
