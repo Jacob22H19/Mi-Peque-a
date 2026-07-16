@@ -1,125 +1,190 @@
-body {
-    margin: 0;
-    padding: 0;
-      /* AQUÍ AGREGAS TU IMAGEN DE FONDO */
-    background-image: url('photo-1518199266791-5375a83190b7.jpg'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden;
+/* Reseteo y fondo con imagen */
+    body {
+        margin: 0;
+        padding: 0;
+      background-image: url('photo.jpg'); /* Tu imagen de fondo */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+      position: relative; /* Importante para las fotos en las esquinas */
     }
 
-    /* Un pequeño filtro oscuro para que el sobre y las letras resalten sobre la imagen */
+    /* Filtro oscuro para resaltar todo */
     .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-      background-color: rgba(0, 0, 0, 0.4); /* Cambia el 0.4 para hacerlo más o menos oscuro */
-    z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4); 
+        z-index: 1;
     }
 
-    /* Contenedor principal - Subimos el z-index para que esté sobre el filtro */
+    /* =========================================
+        NUEVO: ESTILOS PARA LAS FOTOS DE LAS ESQUINAS
+       ========================================= */
+    .corner-photo {
+        position: absolute;
+        z-index: 5;
+        background: white;
+      padding: 8px 8px 45px 8px; /* Crea el marco tipo polaroid */
+        border-radius: 4px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transition: all 0.4s ease; /* Suaviza el movimiento */
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Tamaño de las imágenes */
+    .corner-photo img {
+        width: 140px;
+        height: 140px;
+      object-fit: cover; /* Evita que la foto se deforme */
+        border-radius: 2px;
+    }
+
+    /* La frase oculta */
+    .corner-photo .phrase {
+        position: absolute;
+        bottom: 8px;
+        font-size: 12px;
+        color: #d84358;
+        font-weight: bold;
+      opacity: 0; /* Oculto por defecto */
+        transition: opacity 0.4s ease;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Posiciones y rotaciones individuales */
+    .top-left { 
+      top: 50%; left: 50%; 
+      /* Aumentamos los valores para alejarlas más */
+      transform: translate(-420px, -300px) rotate(-15deg); 
+    }
+    .top-right { 
+      top: 50%; left: 50%; 
+      transform: translate(280px, -300px) rotate(12deg); 
+    }
+
+    .middle-left { top: 50%; left: 50%; transform: translate(-700px, -80px) rotate(-5deg); }
+    .middle-right { top: 50%; left: 50%; transform: translate(500px, -80px) rotate(8deg); }
+
+    .bottom-left { 
+      top: 50%; left: 50%; 
+      transform: translate(-420px, 130px) rotate(10deg); 
+    }
+    .bottom-right { 
+      top: 50%; left: 50%; 
+      transform: translate(280px, 120px) rotate(-12deg); 
+    }
+
+    /* === Efecto HOVER General === */
+    .corner-photo:hover {
+      z-index: 20; /* Se pone por encima de todo al pasar el cursor */
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+    }
+
+
+    /* Mostrar la frase al pasar el cursor */
+    .corner-photo:hover .phrase {
+        opacity: 1;
+    }
+
+    .top-left:hover {
+      transform: translate(-420px, -300px) scale(1.3) rotate(0deg);
+    }
+    .top-right:hover {
+      transform: translate(280px, -300px) scale(1.3) rotate(0deg);
+    }
+
+    .middle-left:hover { transform: translate(-700px, -80px) scale(1.3) rotate(0deg); }
+    .middle-right:hover { transform: translate(500px, -80px) scale(1.3) rotate(0deg); }
+
+    .bottom-left:hover {
+      transform: translate(-420px, 130px) scale(1.3) rotate(0deg);
+    }
+    .bottom-right:hover {
+      transform: translate(280px, 120px) scale(1.3) rotate(0deg);
+    }
+
+    /* =========================================
+        ESTILOS DEL SOBRE (Mantenemos lo anterior)
+       ========================================= */
     .envelope-wrapper {
-    position: relative;
-    width: 300px;
-    height: 200px;
-    cursor: pointer;
-    z-index: 2;
+        position: relative;
+        width: 300px;
+        height: 200px;
+        cursor: pointer;
+      z-index: 10; /* Mayor que las fotos sin hover para que siempre se pueda clickear */
     }
 
-    /* El cuerpo del sobre */
     .envelope {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: #d84358; 
-    border-radius: 5px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: #d84358; 
+        border-radius: 5px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     }
 
     .envelope::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-bottom: 110px solid #e05469;
-    z-index: 3;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 0; height: 0;
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-bottom: 110px solid #e05469;
+        z-index: 3;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
     }
 
     .flap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 110px solid #c93b4e;
-    z-index: 4;
-    transform-origin: top;
-    transition: transform 0.6s ease-in-out, z-index 0.2s;
+        position: absolute;
+        top: 0; left: 0;
+        width: 0; height: 0;
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-top: 110px solid #c93b4e;
+        z-index: 4;
+        transform-origin: top;
+        transition: transform 0.6s ease-in-out, z-index 0.2s;
     }
 
     .letter {
-    position: absolute;
-    bottom: 0;
-    left: 15px;
-    right: 15px;
-    background: white;
-    padding: 25px;
-    text-align: center;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    transition: transform 0.8s ease-in-out;
-    z-index: 2;
+        position: absolute;
+        bottom: 0; left: 15px; right: 15px;
+        background: white; padding: 25px;
+        text-align: center; border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: transform 0.8s ease-in-out;
+        z-index: 2;
     }
 
     .letter h2 { color: #d84358; font-size: 20px; margin-top: 0; margin-bottom: 10px; }
     .letter p { color: #444; font-size: 14px; line-height: 1.5; margin-bottom: 0; }
 
-    .hearts {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
-    pointer-events: none;
-    }
-
-    .heart {
-    position: absolute;
-    color: #ff4d6d;
-    font-size: 28px;
-    opacity: 0;
-    transition: opacity 0.4s, transform 1s ease-out;
-    }
+    .hearts { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; pointer-events: none; }
+    .heart { position: absolute; color: #ff4d6d; font-size: 28px; opacity: 0; transition: opacity 0.4s, transform 1s ease-out; }
 
     /* ESTADOS AL HACER CLIC */
     .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 1; }
     .envelope-wrapper.open .letter { transform: translateY(-130px); z-index: 3; }
     .envelope-wrapper.open .heart:nth-child(1) { opacity: 1; transform: translate(-110px, -200px) scale(1.2) rotate(-15deg); }
-    .envelope-wrapper.open .heart:nth-child(2) { opacity: 1; transform: translate(80px, -195px) scale(1.5) rotate(20deg); }
+    .envelope-wrapper.open .heart:nth-child(2) { opacity: 1; transform: translate(80px, -190px) scale(1.5) rotate(20deg); }
     .envelope-wrapper.open .heart:nth-child(3) { opacity: 1; transform: translate(0, -225px) scale(1) rotate(5deg); }
 
     .instruction {
-    margin-top: 50px;
-    color: #fff;
-    font-size: 14px;
-    letter-spacing: 1px;
-    z-index: 2;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+        margin-top: 50px; color: #fff; font-size: 14px; letter-spacing: 1px; z-index: 10; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
     }
