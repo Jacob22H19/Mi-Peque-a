@@ -36,7 +36,7 @@
         position: absolute;
         z-index: 5;
         background: white;
-      padding: 8px 8px 45px 8px; /* Crea el marco tipo polaroid */
+        padding: 8px 8px 45px 8px; /* Crea el marco tipo polaroid */
         border-radius: 4px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       transition: all 0.4s ease; /* Suaviza el movimiento */
@@ -71,23 +71,23 @@
     .top-left { 
       top: 50%; left: 50%; 
       /* Aumentamos los valores para alejarlas más */
-      transform: translate(-420px, -300px) rotate(-15deg); 
+      transform: translate(-400px, -250px) rotate(-15deg); 
     }
     .top-right { 
       top: 50%; left: 50%; 
-      transform: translate(280px, -300px) rotate(12deg); 
+      transform: translate(260px, -250px) rotate(12deg); 
     }
 
-    .middle-left { top: 50%; left: 50%; transform: translate(-700px, -80px) rotate(-5deg); }
-    .middle-right { top: 50%; left: 50%; transform: translate(500px, -80px) rotate(8deg); }
+    .middle-left { top: 50%; left: 50%; transform: translate(-630px, -80px) rotate(-5deg); }
+    .middle-right { top: 50%; left: 50%; transform: translate(460px, -80px) rotate(8deg); }
 
     .bottom-left { 
       top: 50%; left: 50%; 
-      transform: translate(-420px, 130px) rotate(10deg); 
+      transform: translate(-400px, 90px) rotate(10deg); 
     }
     .bottom-right { 
       top: 50%; left: 50%; 
-      transform: translate(280px, 120px) rotate(-12deg); 
+      transform: translate(260px, 90px) rotate(-12deg); 
     }
 
     /* === Efecto HOVER General === */
@@ -103,20 +103,20 @@
     }
 
     .top-left:hover {
-      transform: translate(-420px, -300px) scale(1.3) rotate(0deg);
+      transform: translate(-400px, -250px) scale(1.2) rotate(0deg);
     }
     .top-right:hover {
-      transform: translate(280px, -300px) scale(1.3) rotate(0deg);
+      transform: translate(260px, -250px) scale(1.2) rotate(0deg);
     }
 
-    .middle-left:hover { transform: translate(-700px, -80px) scale(1.3) rotate(0deg); }
-    .middle-right:hover { transform: translate(500px, -80px) scale(1.3) rotate(0deg); }
+    .middle-left:hover { transform: translate(-630px, -80px) scale(1.2) rotate(0deg); }
+    .middle-right:hover { transform: translate(460px, -80px) scale(1.2) rotate(0deg); }
 
     .bottom-left:hover {
-      transform: translate(-420px, 130px) scale(1.3) rotate(0deg);
+      transform: translate(-400px, 90px) scale(1.2) rotate(0deg);
     }
     .bottom-right:hover {
-      transform: translate(280px, 120px) scale(1.3) rotate(0deg);
+      transform: translate(260px, 90px) scale(1.2) rotate(0deg);
     }
 
     /* =========================================
@@ -189,4 +189,88 @@
 
     .instruction {
         margin-top: 50px; color: #fff; font-size: 14px; letter-spacing: 1px; z-index: 10; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    }
+
+      /* =========================================
+      ADAPTACIÓN PARA CELULARES (DISEÑO VERTICAL)
+      ========================================= */
+    @media (max-width: 768px) and (orientation: portrait) {
+        body {
+            overflow-y: auto; /* Permite deslizar hacia abajo */
+            overflow-x: hidden;
+            justify-content: flex-start; /* Inicia el contenido desde arriba */
+            padding: 40px 0;
+            height: auto;
+        }
+
+        .corner-photo {
+            position: relative; /* Libera las fotos de su anclaje en el centro */
+            top: auto !important; 
+            left: auto !important;
+            margin: 15px auto; /* Las centra horizontalmente con un respiro entre ellas */
+        }
+
+        /* Usamos 'order' para organizar la secuencia visual sin tocar el HTML */
+        
+        /* Grupo Superior: Fotos Izquierdas */
+        .top-left { order: 1; transform: rotate(-4deg) !important; }
+        .middle-left { order: 2; transform: rotate(3deg) !important; }
+        .bottom-left { order: 3; transform: rotate(-5deg) !important; }
+        
+        /* El Centro: La Carta */
+        .envelope-wrapper { 
+            order: 4; 
+            margin: 60px 0 20px 0; /* Da espacio libre alrededor del sobre */
+        }
+        
+        .instruction { 
+            order: 5; 
+            margin-top: 0; 
+            margin-bottom: 40px; 
+        }
+        
+        /* Grupo Inferior: Fotos Derechas */
+        .top-right { order: 6; transform: rotate(4deg) !important; }
+        .middle-right { order: 7; transform: rotate(-3deg) !important; }
+        .bottom-right { order: 8; transform: rotate(5deg) !important; }
+
+        /* Comportamiento al tocar la foto en el celular */
+        .corner-photo:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+        }
+    }
+
+      /* =========================================
+      ADAPTACIÓN PARA CELULARES (DISEÑO HORIZONTAL)
+      ========================================= */
+    @media (max-width: 950px) and (orientation: landscape) {
+        /* Reducimos ligeramente el tamaño de la foto polaroid */
+        .corner-photo {
+            padding: 6px 6px 35px 6px;
+        }
+        
+        .corner-photo img {
+            width: 100px; 
+            height: 100px;
+        }
+        
+        /* Acercamos todas las fotos al centro reduciendo la distancia en el eje X (translate) */
+        .top-left { transform: translate(-260px, -160px) rotate(-15deg); }
+        .top-right { transform: translate(160px, -160px) rotate(12deg); }
+        
+        .middle-left { transform: translate(-320px, -30px) rotate(-5deg); }
+        .middle-right { transform: translate(220px, -30px) rotate(8deg); }
+        
+        .bottom-left { transform: translate(-260px, 90px) rotate(10deg); }
+        .bottom-right { transform: translate(160px, 90px) rotate(-12deg); }
+
+        /* Mantenemos la firmeza de la posición al hacer hover */
+        .top-left:hover { transform: translate(-260px, -160px) scale(1.15) rotate(0deg); }
+        .top-right:hover { transform: translate(160px, -160px) scale(1.15) rotate(0deg); }
+        
+        .middle-left:hover { transform: translate(-320px, -30px) scale(1.15) rotate(0deg); }
+        .middle-right:hover { transform: translate(220px, -30px) scale(1.15) rotate(0deg); }
+        
+        .bottom-left:hover { transform: translate(-260px, 90px) scale(1.15) rotate(0deg); }
+        .bottom-right:hover { transform: translate(160px, 90px) scale(1.15) rotate(0deg); }
     }
