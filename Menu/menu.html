@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regalos</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <!-- Filtro oscuro -->
+  <div class="overlay"></div>
+
+  <!-- Música de fondo (Asegúrate de tener tu archivo cancion.mp3 en la misma carpeta) -->
+  <audio id="musica" src="Besos, Limón y Miel ♡.mp3" autoplay loop></audio>
+
+  <!-- Contenedor del Menú Principal -->
+  <div class="menu-container">
+    
+    <!-- Columna Izquierda: Imagen destacada -->
+    <div class="column-image">
+      <!-- Cambia 'portada.jpg' por el nombre de la foto que quieras mostrar aquí -->
+      <img src="Background_inside.png" alt="Imagen Especial">
+    </div>
+
+    <!-- Columna Derecha: Título y Botones -->
+    <div class="column-buttons">
+      <h1>Como detalle para ti</h1>
+      <p>He preparado una sorpresa más con mucho cariño. Elige uno:</p>
+      
+      <!-- Enlace al Regalo 1 (El sobre con las fotos) -->
+      <a href="Carta/Carta.html" class="btn-regalo">💌 Ver Sobre y Fotos</a>
+      
+      <!-- Enlace al Regalo 2 (La rosa SVG que florece) -->
+        <a href="Rosa/Rosa.html" class="btn-regalo">🌹 ?</a>
+    </div>
+
+  </div>
+
+  <script>
+    // Truco para asegurar que la música suene en navegadores móviles al primer toque en la pantalla
+    document.body.addEventListener('click', () => {
+      const musica = document.getElementById('musica');
+      if (musica.paused) {
+        musica.play();
+      }
+    }, { once: true });
+  </script>
+
+</body>
+</html>
